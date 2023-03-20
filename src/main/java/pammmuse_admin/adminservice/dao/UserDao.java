@@ -6,6 +6,6 @@ import pammmuse_admin.adminservice.domain.User;
 
 @Mapper
 @Repository
-public interface UserMapper {
-    User login(User user);
+public interface UserDao {
+    public User login(User user);
 }

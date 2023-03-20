@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <h2>로그인폼</h2>
-    <form action="login.jsp" method="post">
+    <form action="member/login.jsp" method="post">
         <div class="mb-3">
             <label class="form-label" for="id">아이디</label>
             <input class="form-control" type="text" name="id" id="id" />
