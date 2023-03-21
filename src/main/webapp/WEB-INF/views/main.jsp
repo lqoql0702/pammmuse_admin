@@ -7,13 +7,28 @@
     <meta charset="UTF-8">
     <title>pammmuse_admin</title>
     <link rel="stylesheet" href="/css/main.css">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="wrap">
         <div class="top_gnb_area">
-            <h1>gnb area</h1>
+            <ul class="list">
+                <c:if test = "${user == null}">
+                    <li >
+                        <a href="/member/login">로그인</a>
+                    </li>
+                </c:if>
+                <c:if test="${user != null }">
+                    <li>
+                        <a id="gnb_logout_button">로그아웃</a>
+                    </li>
+                </c:if>
+            </ul>
         </div>
         <div class="top_area">
             <div class="logo_area">
@@ -31,6 +46,7 @@
                 <c:if test="${user != null}">
                     <div class="login_success_area">
                         <span>회원 : ${user.name}</span>
+                        <a href="/member/logout.do">로그아웃</a>
                     </div>
                 </c:if>
             </div>
@@ -44,6 +60,21 @@
         </div>
     </div>
 </div>
+<script>
 
+    /* gnb_area 로그아웃 버튼 작동 */
+    $("#gnb_logout_button").click(function(){
+        //alert("버튼 작동");
+        $.ajax({
+            type:"POST",
+            url:"/member/logout.do",
+            success:function(data){//HTTP 요청 성공 시 이벤트 핸들러
+                // alert("로그아웃 성공");
+                document.location.reload();
+            }
+        }); // ajax
+    });
+
+</script>
 </body>
 </html>
