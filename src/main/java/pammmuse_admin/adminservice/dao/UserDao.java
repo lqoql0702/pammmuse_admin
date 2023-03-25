@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pammmuse_admin.adminservice.domain.User;
 
 @Mapper
-@Repository
+//@Repository
 public interface UserDao {
     public User login(User user);
 }

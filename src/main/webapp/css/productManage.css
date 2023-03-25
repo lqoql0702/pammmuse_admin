@@ -6,7 +6,6 @@
 a{
     text-decoration: none;
 }
-
 ul{
     list-style: none;
 }
@@ -87,7 +86,7 @@ ul{
 .admin_navi_wrap li a:active {color: black;}
 .admin_navi_wrap li a:hover {color: black;}
 
-.admin_list_03{
+.admin_list_02{
     background-color: #c8c8c8;
 }
 
@@ -109,8 +108,6 @@ ul{
     line-height: 80px;
     color: white;
 }
-
-
 
 /* float 속성 해제 */
 .clearfix{
