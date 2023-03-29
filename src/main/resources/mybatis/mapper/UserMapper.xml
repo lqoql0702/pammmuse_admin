@@ -7,7 +7,7 @@
     </select>
     <!-- 로그인 -->
     <select id="login" parameterType="pammmuse_admin.adminservice.domain.User" resultType="pammmuse_admin.adminservice.domain.User">
-        SELECT USERNO, ID, NAME FROM admin_user
+        SELECT USER_NO, ID, NAME FROM admin_user
         WHERE ID = #{id} AND PASSWD = #{passwd}
     </select>
 </mapper>

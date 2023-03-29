@@ -108,6 +108,7 @@ ul{
     line-height: 80px;
     color: white;
 }
+
 /* 관리자 컨텐츠 메인 영역 */
 .form_section{
     width: 95%;
@@ -161,8 +162,6 @@ ul{
 #enrollBtn:hover {
     background-color: #c9cbd0;
 }
-
-
 
 /* float 속성 해제 */
 .clearfix{

@@ -43,7 +43,7 @@
             <!-- 네비영역 -->
             <div class="admin_navi_wrap">
                 <ul>
-                    <c:if test="${user.userNo == 1}">
+                    <c:if test="${user.user_no == 1}">
                         <li >
                             <a class="admin_list_01" href="/product/productEnroll">상품 등록</a>
                         </li>
@@ -55,9 +55,6 @@
             </div>
             <div class="admin_content_wrap">
                 <div class="admin_content_subject"><span>상품 등록</span></div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
 
         <div class="admin_content_main">
             <form action="/product/productEnroll" method="post" id="enrollForm">
@@ -114,6 +111,9 @@
                 <button id="cancelBtn" class="btn">취 소</button>
                 <button id="enrollBtn" class="btn enroll_btn">등 록</button>
             </div>
+        </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>    <!-- class="wrap" -->
 </div>    <!-- class="wrapper" -->

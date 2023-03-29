@@ -45,7 +45,7 @@
             <!-- 네비영역 -->
             <div class="admin_navi_wrap">
                 <ul>
-                    <c:if test="${user.userNo == 1 }">
+                    <c:if test="${user.user_no == 1 }">
                     <li >
                         <a class="admin_list_01" href="/product/productEnroll">상품 등록</a>
                     </li>
