@@ -10,5 +10,9 @@
 
     </insert>
 
+    <select id="cateList" resultType="pammmuse_admin.adminservice.domain.Category">
+        select * from category
+    </select>
+
 
 </mapper>
