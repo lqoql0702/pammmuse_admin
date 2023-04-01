@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pammmuse_admin.adminservice.dao.CategoryDao">
+
+<!--    <select id="cateList" resultType="pammmuse_admin.adminservice.domain.Category">-->
+<!--        select * from category-->
+<!--    </select>-->
+
+<!--    <select id="cateMapList" resultType="pammmuse_admin.adminservice.domain.CategoryMapping">-->
+<!--        select * from category_mapping-->
+<!--    </select>-->
+
+    <resultMap type="pammmuse_admin.adminservice.domain.Category" id="cateList">
+        <result column="cate_name" property="cate_name" />
+        <result column="cate_code" property="cate_code" />
+        <collection property="categoryMapping" resultMap="mapList"/>
+    </resultMap>
+
+    <resultMap type="pammmuse_admin.adminservice.domain.CategoryMapping" id="mapList">
+        <result column="cate_code" property="cate_code" />
+        <result column="cate_parent" property="cate_parent" />
+        <result column="tier" property="tier" />
+    </resultMap>
+
+    <select id="cateMapList"  parameterType="pammmuse_admin.adminservice.domain.Category" resultMap="cateList">
+        select *
+        from category as c
+        inner join category_mapping as m
+        on c.cate_code = m.cate_code
+    </select>
+
+</mapper>

@@ -66,6 +66,27 @@
                         <input name="product_name">
                     </div>
                 </div>
+
+                <div class="form_section">
+                    <div class="form_section_title">
+                        <label>카테고리</label>
+                    </div>
+                    <div class="form_section_content">
+                        <div class="cate_wrap">
+                            <span>대분류</span>
+                            <select class="cate1">
+                                <option selected value="none">선택</option>
+                            </select>
+                        </div>
+                        <div class="cate_wrap">
+                            <span>소분류</span>
+                            <select class="cate2" name="cateCode">
+                                <option selected value="none">선택</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form_section">
                     <div class="form_section_title">
                         <label>가격</label>
@@ -149,6 +170,13 @@
             }
         }); // ajax
     });
+
+    <%--$(document).ready(function(){--%>
+    <%--    console.log('${cateMapList}');--%>
+    <%--});--%>
+
+    /* 카테고리 */
+    let cateMapList = JSON.parse('${cateMapList}');
 
 </script>
 </body>

@@ -1,15 +1,15 @@
 package pammmuse_admin.adminservice.domain;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Category {
-
-    private String cate_name;
-
+public class CategoryMapping {
     private int cate_code;
 
-    private CategoryMapping categoryMapping;
+    private int cate_parent;
+
+    private int tier;
 }

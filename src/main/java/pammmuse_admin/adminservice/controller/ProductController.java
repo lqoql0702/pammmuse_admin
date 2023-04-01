@@ -1,9 +1,11 @@
 package pammmuse_admin.adminservice.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +14,7 @@ import pammmuse_admin.adminservice.domain.Product;
 import pammmuse_admin.adminservice.service.ProductService;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -29,8 +32,17 @@ public class ProductController {
     }
     /* 상품 등록 페이지 접속 */
     @RequestMapping(value = "productEnroll", method = RequestMethod.GET)
-    public void productEnrollGET() throws Exception{
+    public void productEnrollGET(Model model) throws Exception{
         logger.info("상품 등록 페이지 접속");
+
+        ObjectMapper objm = new ObjectMapper();
+
+        List list = productService.cateMapList();
+
+        String cateMapList = objm.writeValueAsString(list);
+
+        model.addAttribute("cateMapList", cateMapList);
+
     }
 
     /*상품 등록*/

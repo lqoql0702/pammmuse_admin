@@ -13,5 +13,4 @@ public interface ProductDao {
     /*상품 등록*/
     public void productEnroll(Product product);
 
-    public List<Category> cateList();
 }
