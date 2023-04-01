@@ -1,5 +1,6 @@
 package pammmuse_admin.adminservice.service;
 
+import pammmuse_admin.adminservice.domain.Category;
 import pammmuse_admin.adminservice.domain.CategoryMapping;
 import pammmuse_admin.adminservice.domain.Product;
 
@@ -12,4 +13,6 @@ public interface ProductService {
 
     /*카테고리 리스트*/
     public List<CategoryMapping> cateMapList();
+
+    public List<Category> cateList();
 }

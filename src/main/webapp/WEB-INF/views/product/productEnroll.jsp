@@ -80,7 +80,7 @@
                         </div>
                         <div class="cate_wrap">
                             <span>소분류</span>
-                            <select class="cate2" name="cateCode">
+                            <select class="cate2" name="cate_code">
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
@@ -171,12 +171,49 @@
         }); // ajax
     });
 
-    <%--$(document).ready(function(){--%>
-    <%--    console.log('${cateMapList}');--%>
-    <%--});--%>
-
     /* 카테고리 */
     let cateMapList = JSON.parse('${cateMapList}');
+
+    $(document).ready(function(){
+        console.log('${cateMapList}');
+    });
+
+    let cate1Array = new Array();
+    let cate2Array = new Array();
+    let cate1Obj = new Object();
+    let cate2Obj = new Object();
+
+    let cateSelect1 = $(".cate1");
+    let cateSelect2 = $(".cate2");
+
+    /* 카테고리 배열 초기화 메서드 */
+    function makeCateArray(obj,array,cateMapList, tier){
+        for(let i = 0; i < cateMapList.length; i++){
+            if(cateMapList[i].tier === tier){
+                obj = new Object();
+
+                obj.cate_name = cateMapList[i].cate_name;
+                obj.cate_code = cateMapList[i].cate_code;
+                obj.cate_parent = cateMapList[i].cate_parent;
+
+                array.push(obj);
+
+            }
+        }
+    }
+
+    /* 배열 초기화 */
+    makeCateArray(cate1Obj,cate1Array,cateMapList,1);
+    makeCateArray(cate2Obj,cate2Array,cateMapList,2);
+
+    $(document).ready(function(){
+        console.log(cate1Array);
+        console.log(cate2Array);
+    });
+
+    for(let i = 0; i < cate1Array.length; i++){
+        cateSelect1.append("<option value='"+cate1Array[i].cate_code+"'>" + cate1Array[i].cate_name + "</option>");
+    }
 
 </script>
 </body>

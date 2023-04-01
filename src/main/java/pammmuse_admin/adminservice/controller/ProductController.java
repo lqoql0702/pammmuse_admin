@@ -43,6 +43,8 @@ public class ProductController {
 
         model.addAttribute("cateMapList", cateMapList);
 
+        logger.info("변경 전.........." + list);
+        logger.info("변경 후.........." + cateMapList);
     }
 
     /*상품 등록*/

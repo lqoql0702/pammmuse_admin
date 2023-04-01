@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pammmuse_admin.adminservice.dao.CategoryDao;
 import pammmuse_admin.adminservice.dao.ProductDao;
+import pammmuse_admin.adminservice.domain.Category;
 import pammmuse_admin.adminservice.domain.CategoryMapping;
 import pammmuse_admin.adminservice.domain.Product;
 
@@ -31,6 +32,12 @@ public class ProductServiceImpl implements ProductService{
     public List<CategoryMapping> cateMapList(){
 
         return categoryDao.cateMapList();
+
+    }
+    @Override
+    public List<Category> cateList(){
+
+        return categoryDao.cateList();
 
     }
 

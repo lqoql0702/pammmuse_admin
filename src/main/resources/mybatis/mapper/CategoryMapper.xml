@@ -14,7 +14,7 @@
     <resultMap type="pammmuse_admin.adminservice.domain.Category" id="cateList">
         <result column="cate_name" property="cate_name" />
         <result column="cate_code" property="cate_code" />
-        <collection property="categoryMapping" resultMap="mapList"/>
+        <association property="categoryMapping" resultMap="mapList"/>
     </resultMap>
 
     <resultMap type="pammmuse_admin.adminservice.domain.CategoryMapping" id="mapList">
@@ -24,10 +24,14 @@
     </resultMap>
 
     <select id="cateMapList"  parameterType="pammmuse_admin.adminservice.domain.Category" resultMap="cateList">
-        select *
+        select c.cate_code,
+               c.cate_name,
+               m.cate_parent,
+               m.tier
         from category as c
-        inner join category_mapping as m
+        join category_mapping as m
         on c.cate_code = m.cate_code
+
     </select>
 
 </mapper>
