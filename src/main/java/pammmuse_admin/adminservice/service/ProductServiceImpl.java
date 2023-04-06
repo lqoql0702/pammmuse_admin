@@ -8,6 +8,7 @@ import pammmuse_admin.adminservice.dao.CategoryDao;
 import pammmuse_admin.adminservice.dao.ProductDao;
 import pammmuse_admin.adminservice.domain.Category;
 import pammmuse_admin.adminservice.domain.CategoryMapping;
+import pammmuse_admin.adminservice.domain.CategoryResultMap;
 import pammmuse_admin.adminservice.domain.Product;
 
 import java.util.List;
@@ -28,17 +29,23 @@ public class ProductServiceImpl implements ProductService{
         productDao.productEnroll(product);
     }
 
-    @Override
-    public List<CategoryMapping> cateMapList(){
+//    @Override
+//    public List<CategoryMapping> cateMapList(){
+//
+//        return categoryDao.cateMapList();
+//
+//    }
+//    @Override
+//    public List<Category> cateList(){
+//
+//        return categoryDao.cateList();
+//
+//    }
 
-        return categoryDao.cateMapList();
+    @Override
+    public List<CategoryResultMap> cateResultMap(){
+
+        return categoryDao.cateResultMap();
 
     }
-    @Override
-    public List<Category> cateList(){
-
-        return categoryDao.cateList();
-
-    }
-
 }

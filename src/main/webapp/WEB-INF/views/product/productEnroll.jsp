@@ -172,10 +172,10 @@
     });
 
     /* 카테고리 */
-    let cateMapList = JSON.parse('${cateMapList}');
+    let cateMapList = JSON.parse('${cateResultMap}');
 
     $(document).ready(function(){
-        console.log('${cateMapList}');
+        console.log('${cateResultMap}');
     });
 
     let cate1Array = new Array();
@@ -183,8 +183,8 @@
     let cate1Obj = new Object();
     let cate2Obj = new Object();
 
-    let cateSelect1 = $(".cate1");
-    let cateSelect2 = $(".cate2");
+    let cateSelect1 = $("select.cate1");
+    let cateSelect2 = $("select.cate2");
 
     /* 카테고리 배열 초기화 메서드 */
     function makeCateArray(obj,array,cateMapList, tier){
@@ -211,9 +211,25 @@
         console.log(cate2Array);
     });
 
+    /* 대분류 <option> 태그 */
     for(let i = 0; i < cate1Array.length; i++){
         cateSelect1.append("<option value='"+cate1Array[i].cate_code+"'>" + cate1Array[i].cate_name + "</option>");
     }
+
+    /* 중분류 <option> 태그 */
+    $(cateSelect1).on("change",function(){
+        let selectVal1 = $(this).find("option:selected").val();
+
+        cateSelect2.children().remove();
+
+        cateSelect2.append("<option value='none'>선택</option>");
+
+        for(let i = 0; i < cate2Array.length; i++){
+            if(selectVal1 === cate2Array[i].cate_parent){
+                cateSelect2.append("<option value='"+cate2Array[i].cate_code+"'>" + cate2Array[i].cate_name + "</option>");
+            }
+        }// for
+    });
 
 </script>
 </body>

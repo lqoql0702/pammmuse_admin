@@ -11,19 +11,19 @@
 <!--        select * from category_mapping-->
 <!--    </select>-->
 
-    <resultMap type="pammmuse_admin.adminservice.domain.Category" id="cateList">
-        <result column="cate_name" property="cate_name" />
-        <result column="cate_code" property="cate_code" />
-        <association property="categoryMapping" resultMap="mapList"/>
-    </resultMap>
+<!--    <resultMap type="pammmuse_admin.adminservice.domain.Category" id="cateList">-->
+<!--        <result column="cate_name" property="cate_name" />-->
+<!--        <result column="cate_code" property="cate_code" />-->
+<!--        <association property="categoryMapping" resultMap="mapList"/>-->
+<!--    </resultMap>-->
 
-    <resultMap type="pammmuse_admin.adminservice.domain.CategoryMapping" id="mapList">
-        <result column="cate_code" property="cate_code" />
-        <result column="cate_parent" property="cate_parent" />
-        <result column="tier" property="tier" />
-    </resultMap>
+<!--    <resultMap type="pammmuse_admin.adminservice.domain.CategoryMapping" id="mapList">-->
+<!--        <result column="cate_code" property="cate_code" />-->
+<!--        <result column="cate_parent" property="cate_parent" />-->
+<!--        <result column="tier" property="tier" />-->
+<!--    </resultMap>-->
 
-    <select id="cateMapList"  parameterType="pammmuse_admin.adminservice.domain.Category" resultMap="cateList">
+    <select id="cateResultMap"  resultType="pammmuse_admin.adminservice.domain.CategoryResultMap">
         select c.cate_code,
                c.cate_name,
                m.cate_parent,

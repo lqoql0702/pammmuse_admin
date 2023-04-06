@@ -5,11 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Category {
-
-    private String cate_name;
+public class CategoryResultMap {
 
     private int cate_code;
 
-//    private CategoryMapping categoryMapping;
+    private String cate_name;
+
+    private int cate_parent;
+
+    private int tier;
 }

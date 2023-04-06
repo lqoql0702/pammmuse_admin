@@ -37,14 +37,14 @@ public class ProductController {
 
         ObjectMapper objm = new ObjectMapper();
 
-        List list = productService.cateMapList();
+        List list = productService.cateResultMap();
 
-        String cateMapList = objm.writeValueAsString(list);
+        String cateResultMap = objm.writeValueAsString(list);
 
-        model.addAttribute("cateMapList", cateMapList);
+        model.addAttribute("cateResultMap", cateResultMap);
 
         logger.info("변경 전.........." + list);
-        logger.info("변경 후.........." + cateMapList);
+        logger.info("변경 후.........." + cateResultMap);
     }
 
     /*상품 등록*/

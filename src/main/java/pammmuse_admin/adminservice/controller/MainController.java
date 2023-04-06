@@ -12,15 +12,12 @@ import pammmuse_admin.adminservice.dao.ProductDao;
 @Controller
 public class MainController {
 
-    @Autowired
-    private CategoryDao categoryDao;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @RequestMapping(value="/main", method = RequestMethod.GET)
     public void mainPageGet(){
         logger.info("메인페이지 진입");
-        categoryDao.cateMapList();
 
     }
 }
