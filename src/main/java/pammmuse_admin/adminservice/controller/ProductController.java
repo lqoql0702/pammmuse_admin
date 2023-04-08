@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pammmuse_admin.adminservice.dto.Criteria;
 import pammmuse_admin.adminservice.domain.Product;
+import pammmuse_admin.adminservice.dto.Page;
 import pammmuse_admin.adminservice.service.ProductService;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Controller
@@ -25,11 +26,11 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    /*상품 등록 페이지 접속*/
-    @RequestMapping(value="productManage", method = RequestMethod.GET)
-    public void productManageGet() throws Exception{
-        logger.info("상품 등록 페이지 접속");
-    }
+//    /*상품 등록 페이지 접속*/
+//    @RequestMapping(value="productManage", method = RequestMethod.GET)
+//    public void productManageGet() throws Exception{
+//        logger.info("상품 등록 페이지 접속");
+//    }
     /* 상품 등록 페이지 접속 */
     @RequestMapping(value = "productEnroll", method = RequestMethod.GET)
     public void productEnrollGET(Model model) throws Exception{
@@ -58,6 +59,25 @@ public class ProductController {
         rttr.addFlashAttribute("enroll_result", product.getProduct_name());
 
         return "redirect:/product/productManage";
+    }
+
+    /* 상품 관리(상품목록) 페이지 접속 */
+    @RequestMapping(value = "productManage", method = RequestMethod.GET)
+    public void productManageGET(Criteria cri, Model model) throws Exception{
+
+        /* 상품 리스트 데이터 */
+        List list = productService.productGetList(cri);
+
+        if(!list.isEmpty()) {
+            model.addAttribute("list", list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+            return;
+        }
+
+//        /* 페이지 인터페이스 데이터 */
+//        model.addAttribute("pageMaker", new Page(cri, productService.productGetTotal(cri)));
+
     }
 
 }

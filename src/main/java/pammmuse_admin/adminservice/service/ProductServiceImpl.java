@@ -1,15 +1,12 @@
 package pammmuse_admin.adminservice.service;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pammmuse_admin.adminservice.dao.CategoryDao;
 import pammmuse_admin.adminservice.dao.ProductDao;
-import pammmuse_admin.adminservice.domain.Category;
-import pammmuse_admin.adminservice.domain.CategoryMapping;
-import pammmuse_admin.adminservice.domain.CategoryResultMap;
-import pammmuse_admin.adminservice.domain.Product;
+import pammmuse_admin.adminservice.domain.*;
+import pammmuse_admin.adminservice.dto.Criteria;
 
 import java.util.List;
 
@@ -29,23 +26,23 @@ public class ProductServiceImpl implements ProductService{
         productDao.productEnroll(product);
     }
 
-//    @Override
-//    public List<CategoryMapping> cateMapList(){
-//
-//        return categoryDao.cateMapList();
-//
-//    }
-//    @Override
-//    public List<Category> cateList(){
-//
-//        return categoryDao.cateList();
-//
-//    }
-
     @Override
     public List<CategoryResultMap> cateResultMap(){
 
         return categoryDao.cateResultMap();
 
+    }
+
+    /* 상품 리스트 */
+    @Override
+    public List<Product> productGetList(Criteria cri) {
+        log.info("productGetTotalList()..........");
+        return productDao.productGetList(cri);
+    }
+
+    /* 상품 총 갯수 */
+    public int productGetTotal(Criteria cri) {
+        log.info("productGetTotal().........");
+        return productDao.productGetTotal(cri);
     }
 }

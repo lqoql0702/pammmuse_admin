@@ -64,6 +64,7 @@
                     </div>
                     <div class="form_section_content">
                         <input name="product_name">
+                        <span class="ck_warn product_name_warn">제품명을 입력해주세요.</span>
                     </div>
                 </div>
 
@@ -84,6 +85,7 @@
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
+                        <span class="ck_warn cate_code_warn">카테고리를 입력해주세요.</span>
                     </div>
                 </div>
 
@@ -93,6 +95,7 @@
                     </div>
                     <div class="form_section_content">
                         <input name="product_price" value="0">
+                        <span class="ck_warn product_price_warn">가격을 입력해주세요.</span>
                     </div>
                 </div>
                 <div class="form_section">
@@ -101,6 +104,7 @@
                     </div>
                     <div class="form_section_content">
                         <input name="product_stock" value="0">
+                        <span class="ck_warn product_stock_warn">재고를 입력해주세요.</span>
                     </div>
                 </div>
                 <div class="form_section">
@@ -109,6 +113,7 @@
                     </div>
                     <div class="form_section_content">
                         <input name="product_color">
+                        <span class="ck_warn product_color_warn">색을 입력해주세요.</span>
                     </div>
                 </div>
                 <div class="form_section">
@@ -117,6 +122,7 @@
                     </div>
                     <div class="form_section_content">
                         <input name="product_size">
+                        <span class="ck_warn product_size_warn">사이즈를 입력해주세요.</span>
                     </div>
                 </div>
                 <div class="form_section">
@@ -124,7 +130,10 @@
                         <label>할인율</label>
                     </div>
                     <div class="form_section_content">
-                        <input name="product_discount" value="0">
+                        <input id="discount_interface" maxlength="2" value="0">
+                        <input name="product_discount" type="hidden" value="0">
+                        <span class="step_val">할인 가격 : <span class="span_product_discount"></span></span>
+                        <span class="ck_warn product_discount_warn">할인율을 입력해주세요.</span>
                     </div>
                 </div>
             </form>
@@ -154,9 +163,83 @@
 
         e.preventDefault();
 
-        enrollForm.submit();
+        /*체크 변수*/
+        let product_name_ck = false;
+        let product_price_ck = false;
+        let product_stock_ck = false;
+        let product_color_ck = false;
+        let product_size_ck = false;
+        let product_discount_ck = false;
+        let cate_code_ck = false;
+
+        let product_name = $("input[name='product_name']").val();
+        let product_price = $("input[name='product_price']").val();
+        let product_stock = $("input[name='product_stock']").val();
+        let product_color = $("input[name='product_color']").val();
+        let product_size = $("input[name='product_size']").val();
+        let product_discount = $("#discount_interface").val();
+        let cate_code = $("select[name='cate_code']").val();
+
+        if(product_name){
+            $(".product_name_warn").css('display','none');
+            product_name_ck = true;
+        } else {
+            $(".product_name_warn").css('display','block');
+            product_name_ck = false;
+        }
+        if(product_price){
+            $(".product_price_warn").css('display','none');
+            product_price_ck = true;
+        } else {
+            $(".product_price_warn").css('display','block');
+            product_price_ck = false;
+        }
+        if(product_stock){
+            $(".product_stock_warn").css('display','none');
+            product_stock_ck = true;
+        } else {
+            $(".product_stock_warn").css('display','block');
+            product_stock_ck = false;
+        }
+        if(product_color){
+            $(".product_color_warn").css('display','none');
+            product_color_ck = true;
+        } else {
+            $(".product_color_warn").css('display','block');
+            product_color_ck = false;
+        }
+        if(product_size){
+            $(".product_size_warn").css('display','none');
+            product_size_ck = true;
+        } else {
+            $(".product_size_warn").css('display','block');
+            product_size_ck = false;
+        }
+        if(!isNaN(product_discount)){
+            $(".product_discount_warn").css('display','none');
+            product_discount_ck = true;
+        } else {
+            $(".product_discount_warn").css('display','block');
+            product_discount_ck = false;
+        }
+        if(cate_code != ''){
+            $(".cate_code_warn").css('display','none');
+            cate_code_ck = true;
+        } else {
+            $(".cate_code_warn").css('display','block');
+            cate_code_ck = false;
+        }
+
+        if(product_name_ck && product_stock_ck && product_price_ck && product_size_ck && product_color_ck && product_discount_ck && cate_code_ck){
+            //alert('통과');
+            enrollForm.submit();
+        } else{
+            return false;
+        }
 
     });
+
+
 
     /* gnb_area 로그아웃 버튼 작동 */
     $("#gnb_logout_button").click(function(){
@@ -229,6 +312,40 @@
                 cateSelect2.append("<option value='"+cate2Array[i].cate_code+"'>" + cate2Array[i].cate_name + "</option>");
             }
         }// for
+    });
+
+    /* 할인율 Input 설정 */
+    $("#discount_interface").on("propertychange change keyup paste input", function(){
+
+        let userInput = $("#discount_interface");
+        let discountInput = $("input[name='product_discount']");
+
+        let discountRate = userInput.val();					// 사용자가 입력할 할인값
+        let sendDiscountRate = discountRate / 100;          // 서버에 전송할 할인값
+
+        let productPrice = $("input[name='product_price']").val();			// 원가
+        let discountPrice = productPrice * (1 - sendDiscountRate);		// 할인가격
+
+            $(".span_product_discount").html(discountPrice);
+
+        discountInput.val(sendDiscountRate);
+
+    });
+
+    $("input[name='product_price']").on("change", function(){
+
+        let userInput = $("#discount_interface");
+        let discountInput = $("input[name='prodcut_discount']");
+
+        let discountRate = userInput.val();					// 사용자가 입력한 할인값
+        let sendDiscountRate = discountRate / 100;			// 서버에 전송할 할인값
+        let productPrice = $("input[name='product_price']").val();			// 원가
+        let discountPrice = productPrice * (1 - sendDiscountRate);		// 할인가격
+
+
+            $(".span_product_discount").html(discountPrice);
+
+
     });
 
 </script>

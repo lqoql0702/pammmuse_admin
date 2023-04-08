@@ -95,8 +95,7 @@ ul{
 .admin_content_wrap{
     width: 80%;
     float:left;
-    height: 100%;
-    height: 700px;
+    min-height:700px;
 
 }
 .admin_content_subject{            /* 관리자 컨텐츠 제목 영역 */
@@ -173,6 +172,19 @@ ul{
 }
 #enrollBtn:hover {
     background-color: #c9cbd0;
+}
+
+.ck_warn{						/* 입력란 공란 경고 태그 */
+    display: none;
+    padding-top: 10px;
+    text-align: center;
+    color: #e05757;
+    font-weight: 300;
+}
+.step_val{						/* 할인 가격 문구 */
+    display: block;
+    padding-top: 5px;
+    font-weight: 500;
 }
 
 /* float 속성 해제 */
