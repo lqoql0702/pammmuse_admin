@@ -1,7 +1,8 @@
 package pammmuse_admin.adminservice.service;
 
+import pammmuse_admin.adminservice.dao.ProductDao;
 import pammmuse_admin.adminservice.domain.*;
-import pammmuse_admin.adminservice.dto.Criteria;
+
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ public interface ProductService {
     public List<CategoryResultMap> cateResultMap();
 
     /* 상품 리스트 */
-    public List<Product> productGetList(Criteria cri);
+    public List<Product> productGetList();
 
-    /* 상품 총 개수 */
-    public int productGetTotal(Criteria cri);
+    /* 상품 조회 페이지 */
+    public Product productGetDetail(int id);
+
 }

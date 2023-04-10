@@ -6,13 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pammmuse_admin.adminservice.dto.Criteria;
 import pammmuse_admin.adminservice.domain.Product;
-import pammmuse_admin.adminservice.dto.Page;
 import pammmuse_admin.adminservice.service.ProductService;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ProductController {
 //        logger.info("상품 등록 페이지 접속");
 //    }
     /* 상품 등록 페이지 접속 */
-    @RequestMapping(value = "productEnroll", method = RequestMethod.GET)
+    @GetMapping(value = "productEnroll")
     public void productEnrollGET(Model model) throws Exception{
         logger.info("상품 등록 페이지 접속");
 
@@ -62,11 +61,11 @@ public class ProductController {
     }
 
     /* 상품 관리(상품목록) 페이지 접속 */
-    @RequestMapping(value = "productManage", method = RequestMethod.GET)
-    public void productManageGET(Criteria cri, Model model) throws Exception{
+    @GetMapping(value = "productManage")
+    public void productManageGET(Model model) throws Exception{
 
         /* 상품 리스트 데이터 */
-        List list = productService.productGetList(cri);
+        List list = productService.productGetList();
 
         if(!list.isEmpty()) {
             model.addAttribute("list", list);
@@ -75,8 +74,16 @@ public class ProductController {
             return;
         }
 
-//        /* 페이지 인터페이스 데이터 */
-//        model.addAttribute("pageMaker", new Page(cri, productService.productGetTotal(cri)));
+    }
+
+    /* 상품 조회 페이지 */
+    @GetMapping("/productDetail")
+    public void productGetInfoGET(int id, Model model) {
+
+        logger.info("productGetInfo()........." + id);
+
+        /* 조회 페이지 정보 */
+        model.addAttribute("productInfo", productService.productGetDetail(id));
 
     }
 

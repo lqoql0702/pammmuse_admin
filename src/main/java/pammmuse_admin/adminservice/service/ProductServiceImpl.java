@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pammmuse_admin.adminservice.dao.CategoryDao;
 import pammmuse_admin.adminservice.dao.ProductDao;
 import pammmuse_admin.adminservice.domain.*;
-import pammmuse_admin.adminservice.dto.Criteria;
 
 import java.util.List;
 
@@ -35,14 +34,18 @@ public class ProductServiceImpl implements ProductService{
 
     /* 상품 리스트 */
     @Override
-    public List<Product> productGetList(Criteria cri) {
+    public List<Product> productGetList() {
         log.info("productGetTotalList()..........");
-        return productDao.productGetList(cri);
+        return productDao.productGetList();
     }
 
-    /* 상품 총 갯수 */
-    public int productGetTotal(Criteria cri) {
-        log.info("productGetTotal().........");
-        return productDao.productGetTotal(cri);
+    /* 상품 조회 페이지 */
+    @Override
+    public Product productGetDetail(int id) {
+
+        log.info("(service)productGetDetail......." + id);
+
+        return productDao.productGetDetail(id);
     }
+
 }

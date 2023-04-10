@@ -1,6 +1,5 @@
 package pammmuse_admin.adminservice.dao;
 
-import pammmuse_admin.adminservice.dto.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 import pammmuse_admin.adminservice.domain.Product;
 
@@ -13,9 +12,10 @@ public interface ProductDao {
     public void productEnroll(Product product);
 
     /* 상품 리스트 */
-    public List<Product> productGetList(Criteria cri);
+    public List<Product> productGetList();
 
-    /* 상품 총 개수 */
-    public int productGetTotal(Criteria cri);
+    /* 상품 조회 페이지 */
+    public Product productGetDetail(int id);
+
 
 }

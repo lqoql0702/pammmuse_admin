@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pammmuse_admin.adminservice.domain.User;
 import pammmuse_admin.adminservice.service.UserService;
@@ -25,14 +23,14 @@ public class UserController {
     private final UserService userservice;
 
     /*로그인 페이지 이동*/
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @GetMapping(value = "login")
     public void loginGET() {
 
         logger.info("로그인 페이지 진입");
 
     }
     /* 로그인 */
-    @RequestMapping(value="login", method=RequestMethod.POST)
+    @PostMapping(value="login")
     public String loginPost(HttpServletRequest request, User user, RedirectAttributes rttr) throws Exception{
 
         HttpSession session = request.getSession();
@@ -48,7 +46,7 @@ public class UserController {
         return "redirect:/main";
     }
     /*메인페이지 로그아웃*/
-    @RequestMapping(value = "logout.do", method = RequestMethod.GET)
+    @GetMapping(value = "logout.do")
     public String logoutMainGet(HttpServletRequest request) throws Exception{
         logger.info("logoutMainGet메서드 진입");
 
@@ -60,7 +58,7 @@ public class UserController {
     }
 
     /*비동기 방식 로그아웃 메서드*/
-    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
+    @PostMapping(value = "logout.do")
     @ResponseBody
     public void logoutPost(HttpServletRequest request) throws Exception{
         logger.info("비동기 로그아웃 메서드 진입");

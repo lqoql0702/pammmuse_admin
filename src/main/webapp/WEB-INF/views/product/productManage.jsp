@@ -14,10 +14,9 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous"></script>
 </head>
-</head>
-<body>
 
-<div class="wrapper">
+
+<body class="wrapper">
     <div class="wrap">
         <!-- gnv_area -->
         <div class="top_gnb_area">
@@ -58,7 +57,7 @@
             <div class="admin_content_wrap">
                 <div class="admin_content_subject"><span>상품 관리</span></div>
 
-                <div class="goods_table_wrap">
+                <div class="product_table_wrap">
                     <!-- 상품 리스트 O -->
                     <c:if test="${listcheck != 'empty'}">
                         <table class="product_table">
@@ -72,7 +71,9 @@
                             <c:forEach items="${list}" var="list">
                                 <tr>
                                     <td><c:out value="${list.id}"></c:out></td>
+                                    <a class="move" href='<c:out value="${list.id}"/>'>
                                     <td><c:out value="${list.product_name}"></c:out></td>
+                                    </a>
                                     <td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd"/></td>
                                 </tr>
                             </c:forEach>
@@ -85,60 +86,13 @@
                         </div>
                     </c:if>
                 </div>
-
-                <!-- 검색 영역 -->
-                <div class="search_wrap">
-                    <form id="searchForm" action="/admin/productManage" method="get">
-                        <div class="search_input">
-                            <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
-                            <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }"></c:out>'>
-                            <input type="hidden" name="amount" value='${pageMaker.cri.amount}'>
-                            <input type="hidden" name="type" value="G">
-                            <button class='btn search_btn'>검 색</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- 페이지 이름 인터페이스 영역 -->
-                <div class="pageMaker_wrap">
-                    <ul class="pageMaker">
-
-                        <!-- 이전 버튼 -->
-                        <c:if test="${pageMaker.prev }">
-                            <li class="pageMaker_btn prev">
-                                <a href="${pageMaker.pageStart -1}">이전</a>
-                            </li>
-                        </c:if>
-
-                        <!-- 페이지 번호 -->
-                        <c:forEach begin="${pageMaker.pageStart }" end="${pageMaker.pageEnd }" var="num">
-                            <li class="pageMaker_btn ${pageMaker.cri.pageNum == num ? 'active':''}">
-                                <a href="${num}">${num}</a>
-                            </li>
-                        </c:forEach>
-
-                        <!-- 다음 버튼 -->
-                        <c:if test="${pageMaker.next}">
-                            <li class="pageMaker_btn next">
-                                <a href="${pageMaker.pageEnd + 1 }">다음</a>
-                            </li>
-                        </c:if>
-                    </ul>
-                </div>
-
-                <form id="moveForm" action="/admin/goodsManage" method="get" >
-                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                    <input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
-                </form>
-            </div>
             <div class="clearfix"></div>
+
         </div>
-
-
-
     </div>    <!-- class="wrap" -->
 </div>    <!-- class="wrapper" -->
+
+
 <script>
 
     $(document).ready(function(){
@@ -170,6 +124,18 @@
                 document.location.reload();
             }
         }); // ajax
+    });
+
+    /* 상품 조회 페이지 */
+    $(".move").on("click", function(e){
+
+        e.preventDefault();
+
+        moveForm.append("<input type='hidden' name='id' value='"+$(this).attr("href") + "'>");
+        moveForm.attr("action", "/product/productDetail");
+        moveForm.submit();
+
+
     });
 
 </script>

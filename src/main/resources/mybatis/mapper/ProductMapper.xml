@@ -15,24 +15,20 @@
 
         select id, product_name, reg_date
         from product
-        <if test="keyword != null">
-            where (product_name like concat ('%', #{keyword}, '%'))
-        </if>
         order by id desc
-        limit #{skip}, #{amount}
+
 
     </select>
 
-    <!-- 상품 총 갯수 -->
-    <select id="prodcutGetTotal" resultType="int">
-
-        select count(*) from product
-
-        <if test="keyword != null">
-
-            where product_name like concat('%' , #{keyword}, '%')
-
-        </if>
+    <!-- 상품 조회 페이지 -->
+    <select id="productGetDetail" resultType="pammmuse_admin.adminservice.domain.Product">
+        select * from product
+        where id = #{id}
+--         select p.id, p.product_name,c.cate_name,
+--                p.product_price, p.product_stock, p.product_color, p.product_size, p.product_discount, p.regDate, p.updateDate
+--         from product as p
+--                  join category as c
+--                       on p.cate_code = c.cate_code
 
     </select>
 
