@@ -71,9 +71,11 @@
                             <c:forEach items="${list}" var="list">
                                 <tr>
                                     <td><c:out value="${list.id}"></c:out></td>
-                                    <a class="move" href='<c:out value="${list.id}"/>'>
-                                    <td><c:out value="${list.product_name}"></c:out></td>
-                                    </a>
+                                    <td>
+                                        <a class="move" href='<c:out value="${list.id}"/>'>
+                                        <c:out value="${list.product_name}"></c:out>
+                                        </a>
+                                    </td>
                                     <td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd"/></td>
                                 </tr>
                             </c:forEach>
@@ -132,7 +134,7 @@
         e.preventDefault();
 
         moveForm.append("<input type='hidden' name='id' value='"+$(this).attr("href") + "'>");
-        moveForm.attr("action", "/product/productDetail");
+        moveForm.attr("action", "productDetail");
         moveForm.submit();
 
 
