@@ -72,7 +72,7 @@
                                 <tr>
                                     <td><c:out value="${list.id}"></c:out></td>
                                     <td>
-                                        <a class="move" href='<c:out value="${list.id}"/>'>
+                                        <a class="move" href='/product/productDetail?id=${list.id}'>
                                         <c:out value="${list.product_name}"></c:out>
                                         </a>
                                     </td>
@@ -128,17 +128,6 @@
         }); // ajax
     });
 
-    /* 상품 조회 페이지 */
-    $(".move").on("click", function(e){
-
-        e.preventDefault();
-
-        moveForm.append("<input type='hidden' name='id' value='"+$(this).attr("href") + "'>");
-        moveForm.attr("action", "productDetail");
-        moveForm.submit();
-
-
-    });
 
 </script>
 </body>

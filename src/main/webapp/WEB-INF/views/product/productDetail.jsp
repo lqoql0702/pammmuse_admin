@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,7 @@
                             <label>등록 날짜</label>
                         </div>
                         <div class="form_section_content">
-                            <input value="<fmt:formatDate value='${productInfo.regDate}' pattern='yyyy-MM-dd'/>" disabled>
+                            <input value="<fmt:formatDate value='${productInfo.reg_date}' pattern='yyyy-MM-dd'/>" disabled>
                         </div>
                     </div>
 
@@ -84,13 +85,13 @@
                             <div class="cate_wrap">
                                 <span>대분류</span>
                                 <select class="cate1" disabled>
-                                    <option  value="none">선택</option>
+                                    <option value="none">선택</option>
                                 </select>
                             </div>
                             <div class="cate_wrap">
                                 <span>중분류</span>
                                 <select class="cate2" disabled>
-                                    <option  value="none">선택</option>
+                                    <option value="none">선택</option>
                                 </select>
                             </div>
                         </div>
@@ -141,21 +142,106 @@
                     </div>
                 </div>
 
-                <script>
-    /* gnb_area 로그아웃 버튼 작동 */
-    $("#gnb_logout_button").click(function(){
-        //alert("버튼 작동");
-        $.ajax({
-            type:"POST",
-            url:"/member/logout.do",
-            success:function(data){
-                alert("로그아웃 성공");
-                document.location.reload();
-            }
-        }); // ajax
-    });
 
-</script>
+                <script>
+
+                    $("#cancelBtn").click(function(){
+
+                        location.href="/product/productManage"
+
+                    });
+                    /* gnb_area 로그아웃 버튼 작동 */
+                    $("#gnb_logout_button").click(function(){
+                        //alert("버튼 작동");
+                        $.ajax({
+                            type:"POST",
+                            url:"/member/logout.do",
+                            success:function(data){
+                                alert("로그아웃 성공");
+                                document.location.reload();
+                            }
+                        }); // ajax
+                    });
+
+                    $(document).ready(function(){
+
+                        /* 할인율 값 삽입 */
+                        let productDiscount = '<c:out value="${productInfo.product_discount}"/>' * 100;
+                        $("#discount_interface").attr("value", productDiscount);
+
+                        /* 카테고리 */
+                        let cateList = JSON.parse('${cateResultMap}');
+
+                        let cate1Array = new Array();
+                        let cate2Array = new Array();
+                        let cate1Obj = new Object();
+                        let cate2Obj = new Object();
+
+                        let cateSelect1 = $(".cate1");
+                        let cateSelect2 = $(".cate2");
+
+                        /* 카테고리 배열 초기화 메서드 */
+                        function makeCateArray(obj,array,cateList, tier){
+                            for(let i = 0; i < cateList.length; i++){
+                                if(cateList[i].tier == tier){
+                                    obj = new Object();
+
+                                    obj.cate_name = cateList[i].cate_name;
+                                    obj.cate_code = cateList[i].cate_code;
+                                    obj.cate_parent = cateList[i].cate_parent;
+
+                                    array.push(obj);
+                                }
+                            }
+                        }
+
+                        /* 배열 초기화 */
+                        makeCateArray(cate1Obj,cate1Array,cateList,1);
+                        makeCateArray(cate2Obj,cate2Array,cateList,2);
+
+                        let targetCate2 = '${productInfo.cate_code}';
+
+
+                        for(let i = 0; i < cate2Array.length; i++){
+                            if(targetCate2 == cate2Array[i].cate_code){
+                                targetCate2 = cate2Array[i];
+                            }
+                        }// for
+
+                        console.log('targetCate2'+targetCate2);
+                        console.log('targetCate2'+targetCate2.cate_name);
+                        console.log('targetCate2'+targetCate2.cate_code);
+                        console.log('targetCate2'+targetCate2.cate_parent);
+
+
+                        for(let i = 0; i < cate2Array.length; i++){
+                            if(targetCate2.cate_parent == cate2Array[i].cate_parent){
+                                cateSelect2.append("<option value='"+cate2Array[i].cate_code+"'>" + cate2Array[i].cate_name + "</option>");
+                            }
+                        }
+
+                        $(".cate2 option").each(function(i,obj){
+                            if(targetCate2.cate_code == obj.value){
+                                $(obj).attr("selected", "selected");
+                            }
+                        });
+
+                        for(let i = 0; i < cate1Array.length; i++){
+                            cateSelect1.append("<option value='"+cate1Array[i].cate_code+"'>" + cate1Array[i].cate_name + "</option>");
+                        }
+
+                        $(".cate1 option").each(function(i,obj){
+                            if(targetCate2.cate_parent == obj.value){
+                                $(obj).attr("selected", "selected");
+                            }
+                        });
+
+                    });
+
+
+
+
+                </script>
 </body>
 </html>
 

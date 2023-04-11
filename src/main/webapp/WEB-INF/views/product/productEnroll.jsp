@@ -222,7 +222,7 @@
             $(".product_discount_warn").css('display','block');
             product_discount_ck = false;
         }
-        if(cate_code != ''){
+        if(cate_code != 'none'){
             $(".cate_code_warn").css('display','none');
             cate_code_ck = true;
         } else {
@@ -289,10 +289,6 @@
     makeCateArray(cate1Obj,cate1Array,cateMapList,1);
     makeCateArray(cate2Obj,cate2Array,cateMapList,2);
 
-    $(document).ready(function(){
-        console.log(cate1Array);
-        console.log(cate2Array);
-    });
 
     /* 대분류 <option> 태그 */
     for(let i = 0; i < cate1Array.length; i++){
@@ -308,11 +304,12 @@
         cateSelect2.append("<option value='none'>선택</option>");
 
         for(let i = 0; i < cate2Array.length; i++){
-            if(selectVal1 === cate2Array[i].cate_parent){
+            if(selectVal1 == cate2Array[i].cate_parent){
                 cateSelect2.append("<option value='"+cate2Array[i].cate_code+"'>" + cate2Array[i].cate_name + "</option>");
             }
         }// for
     });
+
 
     /* 할인율 Input 설정 */
     $("#discount_interface").on("propertychange change keyup paste input", function(){
