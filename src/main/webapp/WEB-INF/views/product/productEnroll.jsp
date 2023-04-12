@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,6 +137,17 @@
                         <span class="ck_warn product_discount_warn">할인율을 입력해주세요.</span>
                     </div>
                 </div>
+
+                <div style="height: 50px;">
+                    <input type="file" id="file" style="display: none;">
+                    <label for="file" style="color: blue;cursor: pointer">업로드</label>
+                    <input type="button" id="remove" style="display: none;">
+                    <label for="remove" style="color: red;cursor: pointer">삭제</label>
+                </div>
+                <div>
+                    <img id="img"/>
+                </div>
+
             </form>
             <div class="btn_section">
                 <button id="cancelBtn" class="btn">취 소</button>
@@ -148,6 +160,46 @@
     </div>    <!-- class="wrap" -->
 </div>    <!-- class="wrapper" -->
 <script>
+
+    document.getElementById("file").addEventListener("change", uploadResource);
+    document.getElementById("remove").addEventListener("click", removeResource);
+
+    function uploadResource() {
+        const file = document.getElementById("file");
+        const formData = new FormData();
+        formData.append("file", file.files[0]);
+
+        fetch("/s3/resource", {
+            method : "POST"
+            , body : formData
+        })
+            .then(result => result.json())
+            .then(data => {
+                document.getElementById("img").setAttribute("src", data.path);
+                document.getElementById("remove").setAttribute("key", data.key)
+            })
+            .catch(error => console.log(`error => ${error}`));
+    }
+    function removeResource() {
+        const key = document.getElementById("remove").getAttribute("key");
+        if (!key) {
+            return;
+        }
+        const formData = new FormData();
+        formData.append("key", key);
+
+        fetch("/s3/resource", {
+            method : "DELETE"
+            , body : formData
+        })
+            .then(result => {
+                if (result.ok && result.status === 200) {
+                    alert("해당 이미지가 삭제되었습니다.");
+                    document.getElementById("img").removeAttribute("src");
+                }
+            })
+            .catch(error => console.log(`error => ${error}`));
+    }
 
     let enrollForm = $("#enrollForm")
 
