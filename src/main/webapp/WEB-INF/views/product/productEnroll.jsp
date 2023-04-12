@@ -139,10 +139,16 @@
                 </div>
 
                 <div style="height: 50px;">
-                    <input type="file" id="file" style="display: none;">
-                    <label for="file" style="color: blue;cursor: pointer">업로드</label>
+                    <tr>
+                    <input type="file" id="file" className="image-upload" />
+                    <label htmlFor="file" className="image-upload-wrapper"></label>
+                    </tr>
                     <input type="button" id="remove" style="display: none;">
                     <label for="remove" style="color: red;cursor: pointer">삭제</label>
+<%--                    <tr>--%>
+<%--                    <button id="remove" className="image-upload">취 소</button>--%>
+<%--                    </tr>--%>
+
                 </div>
                 <div>
                     <img id="img"/>
@@ -180,6 +186,8 @@
             })
             .catch(error => console.log(`error => ${error}`));
     }
+
+
     function removeResource() {
         const key = document.getElementById("remove").getAttribute("key");
         if (!key) {

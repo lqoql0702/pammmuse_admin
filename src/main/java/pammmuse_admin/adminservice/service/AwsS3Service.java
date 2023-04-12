@@ -54,7 +54,7 @@ public class AwsS3Service {
         return getS3(bucket, fileName);
     }
 
-    private String getS3(String bucket, String fileName) {
+    public String getS3(String bucket, String fileName) {
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 
