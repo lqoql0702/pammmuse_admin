@@ -7,8 +7,10 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import pammmuse_admin.adminservice.domain.AwsS3;
+import pammmuse_admin.adminservice.domain.Product;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +26,8 @@ public class AwsS3Service {
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+
 
     public AwsS3 upload(MultipartFile multipartFile, String dirName) throws IOException {
         File file = convertMultipartFileToFile(multipartFile)
@@ -44,17 +48,18 @@ public class AwsS3Service {
                 .build();
     }
 
+
     private String randomFileName(File file, String dirName) {
         return dirName + "/" + UUID.randomUUID() + file.getName();
     }
 
-    private String putS3(File uploadFile, String fileName) {
+    public String putS3(File uploadFile, String fileName) {
         amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return getS3(bucket, fileName);
     }
 
-    public String getS3(String bucket, String fileName) {
+    private String getS3(String bucket, String fileName) {
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 

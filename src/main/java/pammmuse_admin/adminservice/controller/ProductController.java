@@ -2,6 +2,7 @@ package pammmuse_admin.adminservice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pammmuse_admin.adminservice.dao.ProductDao;
+import pammmuse_admin.adminservice.domain.AwsS3;
 import pammmuse_admin.adminservice.domain.Product;
 import pammmuse_admin.adminservice.service.AwsS3Service;
 import pammmuse_admin.adminservice.service.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -26,17 +31,16 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private AwsS3Service awsS3Service;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
 
 //    /*상품 등록 페이지 접속*/
 //    @RequestMapping(value="productManage", method = RequestMethod.GET)
 //    public void productManageGet() throws Exception{
 //        logger.info("상품 등록 페이지 접속");
 //    }
+
+
+
     /* 상품 등록 페이지 접속 */
     @GetMapping(value = "productEnroll")
     public void productEnrollGET(Model model) throws Exception{
@@ -97,7 +101,6 @@ public class ProductController {
         /* 조회 페이지 정보 */
         model.addAttribute("productInfo", productService.productGetDetail(id));
 
-        model.addAttribute("image_url", awsS3Service.getS3(bucket, fileName));
 
     }
 

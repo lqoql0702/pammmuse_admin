@@ -15,10 +15,16 @@ public class AwsS3Controller {
 
     private final AwsS3Service awsS3Service;
 
+
     @PostMapping("/resource")
     public AwsS3 upload(@RequestPart("file") MultipartFile multipartFile) throws IOException {
         return awsS3Service.upload(multipartFile,"upload");
     }
+
+//    @GetMapping("/resource")
+//    public AwsS3 save(@RequestPart("file") MultipartFile multipartFile) throws IOException {
+//        return awsS3Service.
+//    }
 
     @DeleteMapping("/resource")
     public void remove(AwsS3 awsS3) {

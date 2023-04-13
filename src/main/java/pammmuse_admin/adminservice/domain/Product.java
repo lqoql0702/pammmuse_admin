@@ -28,4 +28,6 @@ public class Product {
     private Date reg_date;
 
     private Date update_date;
+
+    private String image_url;
 }
