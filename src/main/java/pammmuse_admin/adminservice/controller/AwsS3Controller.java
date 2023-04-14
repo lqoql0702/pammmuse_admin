@@ -23,7 +23,7 @@ public class AwsS3Controller {
 
 //    @GetMapping("/resource")
 //    public AwsS3 save(@RequestPart("file") MultipartFile multipartFile) throws IOException {
-//        return awsS3Service.
+//        return awsS3Service.put
 //    }
 
     @DeleteMapping("/resource")
