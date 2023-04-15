@@ -58,7 +58,7 @@
                 <div class="admin_content_subject"><span>상품 등록</span></div>
 
         <div class="admin_content_main">
-            <form action="/product/productEnroll" method="post" id="enrollForm">
+            <form action="/product/productEnroll" method="post" id="enrollForm" enctype="multipart/form-data">
                 <div class="form_section">
                     <div class="form_section_title">
                         <label>제품명</label>
@@ -140,7 +140,7 @@
 
                 <div style="height: 50px;">
                     <tr>
-                    <input type="file" id="file" className="image-upload" />
+                    <input type="file" id="file" className="image-upload" name="image_url"/>
                     <label htmlFor="file" className="image-upload-wrapper"></label>
                     </tr>
                     <input type="button" id="remove" style="display: none;">

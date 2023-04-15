@@ -33,6 +33,7 @@ public class ProductController {
 
 
 
+
 //    /*상품 등록 페이지 접속*/
 //    @RequestMapping(value="productManage", method = RequestMethod.GET)
 //    public void productManageGet() throws Exception{
@@ -60,13 +61,15 @@ public class ProductController {
 
     /*상품 등록*/
     @PostMapping("/productEnroll")
-    public String productEnrollPost(Product product, RedirectAttributes rttr) {
+    public String productEnrollPost(Product product, RedirectAttributes rttr, @RequestPart("file") MultipartFile multipartFile) throws IOException {
 
         logger.info("productEnrollPOST......" + product);
+
 
         productService.productEnroll(product);
 
         rttr.addFlashAttribute("enroll_result", product.getProduct_name());
+
 
         return "redirect:/product/productManage";
     }

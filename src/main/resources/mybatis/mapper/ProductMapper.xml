@@ -5,8 +5,8 @@
 
     <!--제품 등록-->
     <insert id="productEnroll">
-        insert into product(product_name, cate_code, product_price, product_stock, product_color, product_size, product_discount)
-        values(#{product_name}, #{cate_code}, #{product_price}, #{product_stock}, #{product_color}, #{product_size}, #{product_discount})
+        insert into product(product_name, cate_code, product_price, product_stock, product_color, product_size, product_discount, image_url)
+        values(#{product_name}, #{cate_code}, #{product_price}, #{product_stock}, #{product_color}, #{product_size}, #{product_discount}, #{image_url})
 
     </insert>
 
