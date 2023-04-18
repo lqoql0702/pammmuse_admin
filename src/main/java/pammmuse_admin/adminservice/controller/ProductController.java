@@ -31,6 +31,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private AwsS3Service awsS3Service;
+
 
 
 
@@ -61,10 +64,15 @@ public class ProductController {
 
     /*상품 등록*/
     @PostMapping("/productEnroll")
-    public String productEnrollPost(Product product, RedirectAttributes rttr, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public String productEnrollPost(Product product, RedirectAttributes rttr, @RequestPart("uploadFile") MultipartFile multipartFile) throws IOException {
 
         logger.info("productEnrollPOST......" + product);
 
+        logger.info("file...."+multipartFile);
+
+        String uploadPath = awsS3Service.upload(multipartFile,"upload");
+
+        product.setImage_url(uploadPath);
 
         productService.productEnroll(product);
 
@@ -73,6 +81,7 @@ public class ProductController {
 
         return "redirect:/product/productManage";
     }
+
 
     /* 상품 관리(상품목록) 페이지 접속 */
     @GetMapping(value = "productManage")

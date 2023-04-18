@@ -76,13 +76,13 @@
                     <div class="form_section_content">
                         <div class="cate_wrap">
                             <span>대분류</span>
-                            <select class="cate1">
+                            <select class="cate1" name="cate_code">
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
                         <div class="cate_wrap">
                             <span>소분류</span>
-                            <select class="cate2" name="cate_code">
+                            <select class="cate2">
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
@@ -138,20 +138,13 @@
                     </div>
                 </div>
 
-                <div style="height: 50px;">
-                    <tr>
-                    <input type="file" id="file" className="image-upload" name="image_url"/>
-                    <label htmlFor="file" className="image-upload-wrapper"></label>
-                    </tr>
-                    <input type="button" id="remove" style="display: none;">
-                    <label for="remove" style="color: red;cursor: pointer">삭제</label>
-<%--                    <tr>--%>
-<%--                    <button id="remove" className="image-upload">취 소</button>--%>
-<%--                    </tr>--%>
-
-                </div>
-                <div>
-                    <img id="img"/>
+                <div class="form_section">
+                    <div class="form_section_title">
+                        <label>상품 이미지</label>
+                    </div>
+                    <div class="form_section_content">
+                        <input type="file" multiple id ="file" name='uploadFile' style="height: 30px;">
+                    </div>
                 </div>
 
             </form>
@@ -167,49 +160,25 @@
 </div>    <!-- class="wrapper" -->
 <script>
 
-    document.getElementById("file").addEventListener("change", uploadResource);
-    document.getElementById("remove").addEventListener("click", removeResource);
 
-    function uploadResource() {
-        const file = document.getElementById("file");
-        const formData = new FormData();
-        formData.append("file", file.files[0]);
+    // document.getElementById("file").addEventListener("change", uploadResource);
+    //
+    // function uploadResource() {
+    //     const file = $('input[name="file"]').get(0).files[0];
+    //     var formData = new FormData();
+    //     formData.append('file', file);
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/product/productEnroll',
+    //         data: formData,
+    //         enctype: 'multipart/form-data',
+    //         processData: false,
+    //         contentType: false,
+    //         cache: false
+    //     });
+    //  }
 
-        fetch("/s3/resource", {
-            method : "POST"
-            , body : formData
-        })
-            .then(result => result.json())
-            .then(data => {
-                document.getElementById("img").setAttribute("src", data.path);
-                document.getElementById("remove").setAttribute("key", data.key)
-            })
-            .catch(error => console.log(`error => ${error}`));
-    }
-
-
-    function removeResource() {
-        const key = document.getElementById("remove").getAttribute("key");
-        if (!key) {
-            return;
-        }
-        const formData = new FormData();
-        formData.append("key", key);
-
-        fetch("/s3/resource", {
-            method : "DELETE"
-            , body : formData
-        })
-            .then(result => {
-                if (result.ok && result.status === 200) {
-                    alert("해당 이미지가 삭제되었습니다.");
-                    document.getElementById("img").removeAttribute("src");
-                }
-            })
-            .catch(error => console.log(`error => ${error}`));
-    }
-
-    let enrollForm = $("#enrollForm")
 
     /* 취소 버튼 */
     $("#cancelBtn").click(function(){
@@ -217,6 +186,8 @@
         location.href="/product/productManage"
 
     });
+
+    let enrollForm = $("#enrollForm")
 
     /* 상품 등록 버튼 */
     $("#enrollBtn").on("click",function(e){
@@ -298,8 +269,6 @@
         }
 
     });
-
-
 
     /* gnb_area 로그아웃 버튼 작동 */
     $("#gnb_logout_button").click(function(){
@@ -402,6 +371,28 @@
 
             $(".span_product_discount").html(discountPrice);
 
+
+    });
+
+    $("input[type='file']").on("change", function(e){
+        let fileInput = $('input[name="uploadFile"]');
+        let fileList = fileInput[0].files;
+        let fileObj = fileList[0];
+
+        let formData = new FormData();
+
+        for(let i = 0; i < fileList.length; i++){
+            formData.append("uploadFile", fileList[i]);
+        }
+
+        $.ajax({
+            url: '/product/productEnroll',
+            processData : false,
+            contentType : false,
+            data : formData,
+            type : 'POST',
+            dataType : 'json'
+        });
 
     });
 

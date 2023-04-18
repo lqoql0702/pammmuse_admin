@@ -20,7 +20,7 @@ public class MainController {
 
     @GetMapping(value="/main")
     public void mainPageGet(){
-        logger.info("메인페이지 진입");
+        logger.info("로그인페이지 진입");
 
 
     }
