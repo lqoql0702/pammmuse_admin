@@ -76,13 +76,13 @@
                     <div class="form_section_content">
                         <div class="cate_wrap">
                             <span>대분류</span>
-                            <select class="cate1" name="cate_code">
+                            <select class="cate1" id="cate1">
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
                         <div class="cate_wrap">
                             <span>소분류</span>
-                            <select class="cate2">
+                            <select class="cate2" name="cate_code">
                                 <option selected value="none">선택</option>
                             </select>
                         </div>
@@ -160,131 +160,9 @@
 </div>    <!-- class="wrapper" -->
 <script>
 
-
-    // document.getElementById("file").addEventListener("change", uploadResource);
-    //
-    // function uploadResource() {
-    //     const file = $('input[name="file"]').get(0).files[0];
-    //     var formData = new FormData();
-    //     formData.append('file', file);
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/product/productEnroll',
-    //         data: formData,
-    //         enctype: 'multipart/form-data',
-    //         processData: false,
-    //         contentType: false,
-    //         cache: false
-    //     });
-    //  }
-
-
-    /* 취소 버튼 */
-    $("#cancelBtn").click(function(){
-
-        location.href="/product/productManage"
-
-    });
-
-    let enrollForm = $("#enrollForm")
-
-    /* 상품 등록 버튼 */
-    $("#enrollBtn").on("click",function(e){
-
-        e.preventDefault();
-
-        /*체크 변수*/
-        let product_name_ck = false;
-        let product_price_ck = false;
-        let product_stock_ck = false;
-        let product_color_ck = false;
-        let product_size_ck = false;
-        let product_discount_ck = false;
-        let cate_code_ck = false;
-
-        let product_name = $("input[name='product_name']").val();
-        let product_price = $("input[name='product_price']").val();
-        let product_stock = $("input[name='product_stock']").val();
-        let product_color = $("input[name='product_color']").val();
-        let product_size = $("input[name='product_size']").val();
-        let product_discount = $("#discount_interface").val();
-        let cate_code = $("select[name='cate_code']").val();
-
-        if(product_name){
-            $(".product_name_warn").css('display','none');
-            product_name_ck = true;
-        } else {
-            $(".product_name_warn").css('display','block');
-            product_name_ck = false;
-        }
-        if(product_price){
-            $(".product_price_warn").css('display','none');
-            product_price_ck = true;
-        } else {
-            $(".product_price_warn").css('display','block');
-            product_price_ck = false;
-        }
-        if(product_stock){
-            $(".product_stock_warn").css('display','none');
-            product_stock_ck = true;
-        } else {
-            $(".product_stock_warn").css('display','block');
-            product_stock_ck = false;
-        }
-        if(product_color){
-            $(".product_color_warn").css('display','none');
-            product_color_ck = true;
-        } else {
-            $(".product_color_warn").css('display','block');
-            product_color_ck = false;
-        }
-        if(product_size){
-            $(".product_size_warn").css('display','none');
-            product_size_ck = true;
-        } else {
-            $(".product_size_warn").css('display','block');
-            product_size_ck = false;
-        }
-        if(!isNaN(product_discount)){
-            $(".product_discount_warn").css('display','none');
-            product_discount_ck = true;
-        } else {
-            $(".product_discount_warn").css('display','block');
-            product_discount_ck = false;
-        }
-        if(cate_code != 'none'){
-            $(".cate_code_warn").css('display','none');
-            cate_code_ck = true;
-        } else {
-            $(".cate_code_warn").css('display','block');
-            cate_code_ck = false;
-        }
-
-        if(product_name_ck && product_stock_ck && product_price_ck && product_size_ck && product_color_ck && product_discount_ck && cate_code_ck){
-            //alert('통과');
-            enrollForm.submit();
-        } else{
-            return false;
-        }
-
-    });
-
-    /* gnb_area 로그아웃 버튼 작동 */
-    $("#gnb_logout_button").click(function(){
-        //alert("버튼 작동");
-        $.ajax({
-            type:"POST",
-            url:"/member/logout.do",
-            success:function(data){
-                alert("로그아웃 성공");
-                document.location.reload();
-            }
-        }); // ajax
-    });
-
     /* 카테고리 */
     let cateMapList = JSON.parse('${cateResultMap}');
+
 
     $(document).ready(function(){
         console.log('${cateResultMap}');
@@ -337,6 +215,43 @@
                 cateSelect2.append("<option value='"+cate2Array[i].cate_code+"'>" + cate2Array[i].cate_name + "</option>");
             }
         }// for
+
+    });
+
+    let cate_code = $("select[name='cate_code']").val();
+
+    if(cate_code == null){
+        cate_code = $(cateSelect1).find("option:selected").val();
+    }
+
+    $.ajax({
+            url: '/product/productEnroll',
+            data : cate_code,
+            type : 'POST',
+            dataType : 'json'
+    });
+
+
+
+    /* 취소 버튼 */
+    $("#cancelBtn").click(function(){
+
+        location.href="/product/productManage"
+
+    });
+
+
+    /* gnb_area 로그아웃 버튼 작동 */
+    $("#gnb_logout_button").click(function(){
+        //alert("버튼 작동");
+        $.ajax({
+            type:"POST",
+            url:"/member/logout.do",
+            success:function(data){
+                alert("로그아웃 성공");
+                document.location.reload();
+            }
+        }); // ajax
     });
 
 
@@ -352,9 +267,16 @@
         let productPrice = $("input[name='product_price']").val();			// 원가
         let discountPrice = productPrice * (1 - sendDiscountRate);		// 할인가격
 
-            $(".span_product_discount").html(discountPrice);
+        $(".span_product_discount").html(discountPrice);
 
         discountInput.val(sendDiscountRate);
+
+        $.ajax({
+            url: '/product/productEnroll',
+            data : sendDiscountRate,
+            type : 'POST',
+            dataType : 'json'
+        });
 
     });
 
@@ -369,7 +291,14 @@
         let discountPrice = productPrice * (1 - sendDiscountRate);		// 할인가격
 
 
-            $(".span_product_discount").html(discountPrice);
+        $(".span_product_discount").html(discountPrice);
+
+        $.ajax({
+            url: '/product/productEnroll',
+            data : discountPrice,
+            type : 'POST',
+            dataType : 'json'
+        });
 
 
     });
@@ -387,14 +316,98 @@
 
         $.ajax({
             url: '/product/productEnroll',
-            processData : false,
-            contentType : false,
             data : formData,
             type : 'POST',
             dataType : 'json'
         });
 
     });
+
+    let enrollForm = $("#enrollForm")
+
+    /* 상품 등록 버튼 */
+    $("#enrollBtn").on("click",function(e){
+
+        e.preventDefault();
+
+        /*체크 변수*/
+        let product_name_ck = false;
+        let product_price_ck = false;
+        let product_stock_ck = false;
+        let product_color_ck = false;
+        let product_size_ck = false;
+        let product_discount_ck = false;
+        // let cate_code_ck = false;
+
+        let product_name = $("input[name='product_name']").val();
+        let product_price = $("input[name='product_price']").val();
+        let product_stock = $("input[name='product_stock']").val();
+        let product_color = $("input[name='product_color']").val();
+        let product_size = $("input[name='product_size']").val();
+        let product_discount = $("#discount_interface").val();
+
+
+        if(product_name){
+            $(".product_name_warn").css('display','none');
+            product_name_ck = true;
+        } else {
+            $(".product_name_warn").css('display','block');
+            product_name_ck = false;
+        }
+        if(product_price){
+            $(".product_price_warn").css('display','none');
+            product_price_ck = true;
+        } else {
+            $(".product_price_warn").css('display','block');
+            product_price_ck = false;
+        }
+        if(product_stock){
+            $(".product_stock_warn").css('display','none');
+            product_stock_ck = true;
+        } else {
+            $(".product_stock_warn").css('display','block');
+            product_stock_ck = false;
+        }
+        if(product_color){
+            $(".product_color_warn").css('display','none');
+            product_color_ck = true;
+        } else {
+            $(".product_color_warn").css('display','block');
+            product_color_ck = false;
+        }
+        if(product_size){
+            $(".product_size_warn").css('display','none');
+            product_size_ck = true;
+        } else {
+            $(".product_size_warn").css('display','block');
+            product_size_ck = false;
+        }
+        if(!isNaN(product_discount)){
+            $(".product_discount_warn").css('display','none');
+            product_discount_ck = true;
+        } else {
+            $(".product_discount_warn").css('display','block');
+            product_discount_ck = false;
+        }
+        // if(cate_code != 'none'){
+        //     $(".cate_code_warn").css('display','none');
+        //     cate_code_ck = true;
+        // } else {
+        //     $(".cate_code_warn").css('display','block');
+        //     cate_code_ck = false;
+        // }
+
+        if(product_name_ck && product_stock_ck && product_price_ck && product_size_ck && product_color_ck && product_discount_ck){
+            //alert('통과');
+            enrollForm.submit();
+
+        } else{
+            return false;
+        }
+
+
+    });
+
 
 </script>
 </body>

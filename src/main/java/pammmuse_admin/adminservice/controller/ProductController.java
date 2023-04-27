@@ -76,6 +76,8 @@ public class ProductController {
 
         productService.productEnroll(product);
 
+        logger.info("상품명"+product.getProduct_name());
+
         rttr.addFlashAttribute("enroll_result", product.getProduct_name());
 
 
