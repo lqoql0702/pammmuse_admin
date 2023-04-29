@@ -51,6 +51,9 @@
                         <li>
                             <a class="admin_list_02" href="/product/productManage">상품 관리</a>
                         </li>
+                        <li>
+                            <a class="admin_list_03" href="/notice/noticeEnroll">공지 등록</a>
+                        </li>
                     </c:if>
                 </ul>
             </div>
