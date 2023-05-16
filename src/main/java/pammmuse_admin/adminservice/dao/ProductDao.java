@@ -17,5 +17,4 @@ public interface ProductDao {
     /* 상품 조회 페이지 */
     public Product productGetDetail(int id);
 
-
 }

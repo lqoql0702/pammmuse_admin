@@ -10,4 +10,5 @@
         SELECT USER_NO, ID, NAME FROM admin_user
         WHERE ID = #{id} AND PASSWD = #{passwd}
     </select>
+
 </mapper>

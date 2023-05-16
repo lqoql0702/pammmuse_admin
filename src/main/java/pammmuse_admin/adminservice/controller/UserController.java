@@ -5,14 +5,16 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pammmuse_admin.adminservice.domain.Order;
 import pammmuse_admin.adminservice.domain.User;
 import pammmuse_admin.adminservice.service.UserService;
-import pammmuse_admin.adminservice.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,5 +69,7 @@ public class UserController {
 
         session.invalidate();
     }
+
+
 
 }

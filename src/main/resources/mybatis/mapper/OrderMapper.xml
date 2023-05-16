@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pammmuse_admin.adminservice.dao.OrderDao">
+    <!-- 주문 리스트 -->
+    <select id="getOrderList" resultType="pammmuse_admin.adminservice.domain.Order">
+
+        select order_id, username, order_state, order_date
+        from pammmuse.order
+        order by order_date desc
+
+    </select>
+
+    <!-- 주문취소 -->
+    <update id="orderCancle">
+        update pammmuse.order set order_state = '주문취소' where order_id = #{order_id}
+    </update>
+
+    <!-- 주문 상품 정보(주문취소) -->
+    <select id="getOrderItemInfo" resultType="pammmuse_admin.adminservice.domain.OrderItem">
+
+        select * from pammmuse.order_item
+        where order_id = #{order_id}
+
+    </select>
+
+    <!-- 주문 정보(주문 취소) -->
+    <select id="getOrder" resultType="pammmuse_admin.adminservice.domain.Order">
+
+        select * from pammmuse.order
+        where order_id = #{order_id}
+
+    </select>
+
+    <!-- 주문 재고 되돌리기 -->
+    <update id="deductStock">
+
+        update pammmuse.product set product_stock = #{product_stock} where id = #{id}
+
+    </update>
+</mapper>

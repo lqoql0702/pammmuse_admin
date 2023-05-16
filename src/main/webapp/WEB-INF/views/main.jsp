@@ -53,6 +53,9 @@
                         <li>
                             <a class="admin_list_03" href="/notice/noticeEnroll">공지 등록</a>
                         </li>
+                        <li>
+                            <a class="admin_list_06" href="/member/orderList">주문 현황</a>
+                        </li>
                     </c:if>
                 </ul>
             </div>
