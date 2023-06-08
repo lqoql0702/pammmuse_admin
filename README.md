@@ -34,7 +34,9 @@ pammmuse 쇼핑몰의 admin 사이트 입니다.
 
 - **상품 등록** 
 
-  <p align="center"><img src="src/main/resources/static/img/ezgif-1-420eb3a6d7.gif"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133456.png"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133554.png"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133602.png"/></p>
 
   
   상품명, 카테고리, 가격, 재고, 색상, 사이즈, 할인율(입력시 할인 후 가격 표시), 이미지(AWS S3) 등록 
@@ -44,7 +46,7 @@ pammmuse 쇼핑몰의 admin 사이트 입니다.
 
 - **상품 관리**
 
-  <p align="center"><img src="src/main/resources/static/img/상품 상세.png"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133616.png"/></p>
   
   
   등록된 상품 리스트와 상세 페이지 조회 기능
@@ -53,13 +55,13 @@ pammmuse 쇼핑몰의 admin 사이트 입니다.
 
 - **공지 등록**
 
-  <p align="center"><img src="src/main/resources/static/img/상품 상세.png"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133626.png"/></p>
   
   
   
 - **주문 현황**
 
-  <p align="center"><img src="src/main/resources/static/img/상품 상세.png"/></p>
+  <p align="center"><img src="src/main/resources/static/image/스크린샷 2023-06-08 133637.png"/></p>
   
   주문 내역 확인과 주문 취소 기능
 
